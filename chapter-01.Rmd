@@ -1,0 +1,64 @@
+---
+title: "Introduction"
+output:
+  html_document:
+    toc: yes
+---
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+---
+
+## Ex. 1.11 gaussian-mle
+
+**Ex. 1.11** (☆) By setting the derivatives of the log likelihood function (1.54) with respect to $\mu$ and $\sigma^2$ equal to zero, verify the results (1.55) and (1.56).
+
+**Proof**
+
+重写(1.54)如下：
+
+$$
+\begin{equation}
+\ln p\left(\mathbf{x}\left|\right.\mu,\sigma_2\right) = -\frac{1}{2\sigma^2}\sum_{n=1}^N\left(x_n-\mu\right)^2-\frac{N}{2}\ln\sigma^2-\frac{N}{2}\ln\left(2\pi\right).
+\end{equation}
+$$
+
+为求得$\mu$和$\sigma^2$的MLE，对上式分别求对$\mu$和$\sigma^2$的偏导并让其等于$0$。先对$\mu$求偏导并使之等于$0$，我们有：
+
+$$
+\begin{align}
+\label{eq:ex-1.11-mu-0}
+0 = \frac{\partial{\ln p\left(\mathbf{x}\left|\right.\mu,\sigma_2\right)}}{\partial{\mu}} &= \frac{1}{\sigma^2}\sum_{n=1}^N\left(x_n-\mu\right) \\
+0 &= \sum_{n=1}^N\left(x_n-\mu\right) \\
+\mu &= \frac{1}{N}\sum_{n=1}^Nx_n.
+\end{align}
+$$
+
+再对$\sigma^2$求偏导并使之等于$0$：
+
+$$
+\begin{align}
+\label{eq:ex-1.11-sigma-0}
+0 = \frac{\partial{\ln p\left(\mathbf{x}\left|\right.\mu,\sigma_2\right)}}{\partial{\sigma^2}} &= \frac{1}{2\sigma^4}\sum_{n=1}^N\left(x_n-\mu\right)^2-\frac{N}{2\sigma^2} \\
+\frac{N}{2} &= \frac{1}{2\sigma^2}\sum_{n=1}^N\left(x_n-\mu\right)^2 \\
+\sigma^2 &= \sum_{n=1}^N\left(x_n-\mu\right)^2.
+\end{align}
+$$
+
+上述整个计算过程应该是$\eqref{eq:ex-1.11-mu-0}$和$\eqref{eq:ex-1.11-sigma-0}$联合求解，但对于Gaussian Distribution来说2者实际上解耦合了。因此最终我们证明了：
+
+$$
+\begin{equation}
+\left\{
+\begin{aligned}
+\mu_{\mathrm{ML}} &= \frac{1}{N}\sum_{n=1}^Nx_n \\
+\sigma^2_{\mathrm{ML}} &= \sum_{n=1}^N\left(x_n-\mu_{\mathrm{ML}}\right)^2.
+\end{aligned}
+\right.
+\end{equation}
+$$
+
