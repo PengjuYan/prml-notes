@@ -62,3 +62,86 @@ $$
 \end{equation}
 $$
 
+## Ex. 1.12 gaussian-mle-expectation
+
+**Ex. 1.12** (☆☆) Using the results (1.49) and (1.50), show that
+$$
+\begin{equation}
+\label{ex:ex-1.12-e-xn-xm}
+\mathbb{E}\left[x_nx_m\right] = \mu^2 + I_{nm}\sigma^2
+\end{equation}
+$$
+where $x_n$ and $x_m$ denote data points sampled from a Gaussian distribution with mean $\mu$ and variance $\sigma^2$, and $I_{nm}$ satisfies $I_{nm}=1$ if $n=m$ and $I_{nm}=0$ otherwise. Hence prove the results (1.57) and (1.58).
+
+**Proof**
+
+重抄(1.49)及(1.50)如下：
+
+$$
+\begin{equation}
+\mathbb{E}\left[x\right] = \int_{-\infty}^{\infty}\mathcal{N}\left(x\left|\right.\mu,\sigma^2\right)x\mathrm{d}x = \mu,
+\end{equation}
+$$
+$$
+\begin{equation}
+\mathbb{E}\left[x^2\right] = \int_{-\infty}^{\infty}\mathcal{N}\left(x\left|\right.\mu,\sigma^2\right)x^2\mathrm{d}x = \mu^2 + \sigma^2.
+\end{equation}
+$$
+
+当$n \neq m$时，
+
+$$
+\begin{align}
+\mathbb{E}\left[x_nx_m\right]
+&= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\mathcal{N}\left(x_n\left|\right.\mu,\sigma^2\right)\mathcal{N}\left(x_m\left|\right.\mu,\sigma^2\right)x_nx_m\mathrm{d}x_n\mathrm{d}x_m \\
+&= \int_{-\infty}^{\infty}\mathcal{N}\left(x_n\left|\right.\mu,\sigma^2\right)x_n\mathrm{d}x_n \int_{-\infty}^{\infty}\mathcal{N}\left(x_m\left|\right.\mu,\sigma^2\right)x_m\mathrm{d}x_m \\
+&= \mu^2.
+\end{align}
+$$
+因此$\eqref{ex:ex-1.12-e-xn-xm}$得证。
+
+现在我们来证明(1.57)：
+
+$$
+\begin{align}
+\mathbb{E}\left[\mu_{\mathrm{ML}}\right] &= \frac{1}{N}\mathbb{E}\left[\sum_{n=1}^Nx_n\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\mathbb{E}\left[x_n\right] \\
+&= \frac{1}{N}\sum_{n=1}\mu \\
+&= \mu.
+\end{align}
+$$
+
+再来证明(1.58)：
+
+$$
+\begin{align}
+\mathbb{E}\left[\sigma^2_{\mathrm{ML}}\right]
+&= \frac{1}{N}\mathbb{E}\left[\sum_{n=1}^N\left(x_n-\mu_{\mathrm{ML}}\right)^2\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\mathbb{E}\left(x_n-\frac{1}{N}\sum_{m=1}^Nx_m\right)^2 \\
+&= \frac{1}{N}\sum_{n=1}^N\mathbb{E}\left(\frac{N-1}{N}x_n-\frac{1}{N}\sum_{m \neq n}x_m\right)^2 \\
+&= \frac{1}{N}\sum_{n=1}^N\mathbb{E}\left[\frac{\left(N-1\right)^2}{N^2}x_n^2+\frac{1}{N^2}\sum_{m \neq n}x_m^2-2\frac{N-1}{N^2}x_n\sum_{m \neq n}x_m+\frac{1}{N^2}\sum_{m \neq n}\sum_{l \neq n, l \neq m}x_mx_l\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\left[\frac{\left(N-1\right)^2}{N^2}\left(\mu^2+\sigma^2\right)+\frac{N-1}{N^2}\left(\mu^2+\sigma^2\right)-2\frac{\left(N-1\right)^2}{N^2}\mu^2+\frac{\left(N-1\right)\left(N-2\right)}{N^2}\mu^2\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\left[\frac{N-1}{N}\left(\mu^2+\sigma^2\right)-\frac{N-1}{N}\mu^2\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\left(\frac{N-1}{N}\sigma^2\right) \\
+&= \frac{N-1}{N}\sigma^2.
+\end{align}
+$$
+
+(1.58)的另一种证明方法也要用到$\eqref{ex:ex-1.12-e-xn-xm}$：
+
+$$
+\begin{align}
+\mathbb{E}\left[\sigma^2_{\mathrm{ML}}\right]
+&= \frac{1}{N}\mathbb{E}\left[\sum_{n=1}^N\left(x_n-\mu_{\mathrm{ML}}\right)^2\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\mathbb{E}\left[\left(x_n-\mu\right)-\left(\mu_{\mathrm{ML}}-\mu\right)\right]^2 \\
+&= \frac{1}{N}\sum_{n=1}^N\left[\mathbb{E}\left(x_n-\mu\right)^2 - 2\mathbb{E}\left(x_n-\mu\right)\left(\mu_{\mathrm{ML}}-\mu\right) + \mathbb{E}\left(\mu_{\mathrm{ML}}-\mu\right)^2\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\left[\sigma^2 - 2\mathbb{E}\left(x_n-\mu\right)\left(\mu_{\mathrm{ML}}-\mu\right) + \frac{1}{N}\sigma^2\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\left[\sigma^2 + \frac{1}{N}\sigma^2 - 2\mathbb{E}\left(x_n\mu_{\mathrm{ML}}\right) - 2\mu^2 + 2\mu\mathbb{E}\left(x_n\right) + 2\mu\mathbb{E}\left(\mu_{\mathrm{ML}}\right)\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\left[\sigma^2 + \frac{1}{N}\sigma^2 - 2\mathbb{E}\left(x_n\mu_{\mathrm{ML}}\right) + 2\mu^2\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\left[\sigma^2 + \frac{1}{N}\sigma^2 + 2\mu^2 - 2\frac{1}{N}\left(\mu^2+\sigma^2\right) - 2\frac{N-1}{N}\mu^2\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\left[\sigma^2 + \frac{1}{N}\sigma^2 + 2\mu^2 - 2\mu^2 - 2\frac{1}{N}\sigma^2\right] \\
+&= \frac{1}{N}\sum_{n=1}^N\left(\frac{N-1}{N}\sigma^2\right) \\
+&= \frac{N-1}{N}\sigma^2.
+\end{align}
+$$
+
