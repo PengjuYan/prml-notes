@@ -145,3 +145,19 @@ $$
 \end{align}
 $$
 
+最后，给出一种更为简洁的证明：
+
+$$
+\begin{align}
+\mathbb{E}\left[\sigma^2_{\mathrm{ML}}\right]
+&= \frac{1}{N}\mathbb{E}\left[\sum_{n=1}^N\left(x_n-\mu_{\mathrm{ML}}\right)^2\right] \\
+&= \frac{1}{N}\mathbb{E}\left(\sum_{n=1}^Nx_n^2 - 2\mu_{\mathrm{ML}}\sum_{n=1}^Nx_n + N\mu_{\mathrm{ML}}^2\right) \\
+&= \frac{1}{N}\mathbb{E}\left(\sum_{n=1}^Nx_n^2 - 2N\mu_{\mathrm{ML}}^2 + N\mu_{\mathrm{ML}}^2\right) \\
+&= \frac{1}{N}\mathbb{E}\left(\sum_{n=1}^Nx_n^2 - N\mu_{\mathrm{ML}}^2\right) \\
+&= \frac{1}{N}\sum_{n=1}^N\mathbb{E}x_n^2 - \mathbb{E}\mu_{\mathrm{ML}}^2 \\
+&= \frac{1}{N}\sum_{n=1}^N\left(\mu^2+\sigma^2\right) - \left(\mu^2+\frac{1}{N}\sigma^2\right) \\
+&= \left(\mu^2+\sigma^2\right) - \left(\mu^2+\frac{1}{N}\sigma^2\right) \\
+&= \frac{N-1}{N}\sigma^2.
+\end{align}
+$$
+
